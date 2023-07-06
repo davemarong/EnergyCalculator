@@ -185,6 +185,15 @@ const roundUpValue = (value, list) => {
   return readableValue;
 };
 
+export const transformWatt = (metricScale, watt) => {
+  if (metricScale === "W") {
+    return watt * 1000;
+  } else if (metricScale === "KW") {
+    return watt / 1000;
+  }
+};
+export const transformLiter = (metricScale, liter) => {};
+
 // Variables with functions
 
 // When the user clicks on the link/button of the "label" (sirkulær vannmengde),
