@@ -46,7 +46,7 @@ export const homeMeny_items = [
 
 export const vannMeny_items = [
   {
-    title: "Dimensjonering ekstra ord vann",
+    title: "Dimensjonering",
     content:
       "Dette er det som beskriver hva denne kalkulatoren kan gjøre for å berike ditt arbeidsliv",
     id: 0,
@@ -85,7 +85,7 @@ export const vannMeny_items = [
 ];
 export const ventilasjonMeny_items = [
   {
-    title: "Dimensjonering ekstra ord ventilasjon",
+    title: "Dimensjonering",
     content:
       "Dette er det som beskriver hva denne kalkulatoren kan gjøre for å berike ditt arbeidsliv",
     id: 0,

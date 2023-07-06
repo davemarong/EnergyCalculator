@@ -1,6 +1,7 @@
+import { GlobalLayout } from "@/components/Layout/GlobalLayout";
+import Nav from "@/components/Nav/Nav";
 import { allFormulaData } from "@/Data/formulaData/CombinedData";
 import { allMeny_item } from "@/Data/Items/Items";
-import "@/styles/globals.css";
 import { useState } from "react";
 
 export default function App({ Component, pageProps }) {
@@ -9,14 +10,15 @@ export default function App({ Component, pageProps }) {
 
   return (
     <>
-      <div>navigation</div>
-      <Component
-        {...pageProps}
-        category={category}
-        setCategory={setCategory}
-        formulaData={formulaData}
-        setFormulaData={setFormulaData}
-      ></Component>
+      <GlobalLayout>
+        <Component
+          {...pageProps}
+          category={category}
+          setCategory={setCategory}
+          formulaData={formulaData}
+          setFormulaData={setFormulaData}
+        ></Component>
+      </GlobalLayout>
     </>
   );
 }

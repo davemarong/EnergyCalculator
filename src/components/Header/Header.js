@@ -3,7 +3,7 @@
 // React Native
 
 // ReactNativeElements
-import { Text } from "@rneui/themed";
+import Typography from "@mui/material/Typography";
 
 // Components
 
@@ -19,5 +19,5 @@ export const Header = ({ props }) => {
   // Functions
 
   // Return
-  return <div>Hei mann</div>;
+  return <Typography>Hei mann</Typography>;
 };

@@ -6,6 +6,10 @@ import { useState } from "react";
 // COMPONENTS
 
 // LIBRARIES
+import Typography from "@mui/material/Typography";
+import Select, { SelectChangeEvent } from "@mui/material/Select";
+import MenuItem from "@mui/material/MenuItem";
+import Grid from "@mui/material/Grid";
 
 // UTILS
 
@@ -39,50 +43,40 @@ export const DisplayResult = ({
     let resultObjects = formulaFunctions[i].func(formulaValues, selected);
     result = [...result, ...resultObjects];
   }
+  const [age, setAge] = useState("");
+
+  const handleChange = (event) => {
+    setSelected(event.target.value);
+  };
+
   // RETURN
   return (
-    <div
-    // style={{
-    //   backgroundColor: "white",
-    //   padding: 20,
-    //   borderRadius: 10,
-    //   shadowColor: "#171717",
-    //   shadowOffset: { width: -2, height: 4 },
-    //   shadowOpacity: 0.2,
-    //   shadowRadius: 3,
-    // }}
-    >
+    <Grid container>
       {result.map((item) => {
         return (
-          <div
-            key={item.label}
-            style={{
-              display: "flex",
-              flexDirection: "row",
-              justifyContent: "space-between",
-              alignItems: "center",
-              width: 200,
-              marginBottom: 10,
-              marginTop: 10,
-            }}
-          >
-            {item.toolType ? null : (
-              // <SelectList
-              //   setSelected={setSelected}
-              //   data={toolTypes}
-              //   defaultOption={{ key: "Stålrør", value: "Stålrør" }}
-              //   search={false}
-              //   boxStyles={{ borderRadius: 5 }}
-              // />
-              <div>{item.label}</div>
+          <Grid item xs={3} key={item.label}>
+            {item.toolType ? (
+              <>
+                <Select
+                  value={selected}
+                  label="Tool Type"
+                  onChange={handleChange}
+                >
+                  {toolTypes.map((item) => {
+                    return <MenuItem value={item.value}>{item.value}</MenuItem>;
+                  })}
+                </Select>
+              </>
+            ) : (
+              <Typography>{item.label}</Typography>
             )}
 
-            <div>
+            <Typography>
               {item.result} {item.metric}
-            </div>
-          </div>
+            </Typography>
+          </Grid>
         );
       })}
-    </div>
+    </Grid>
   );
 };

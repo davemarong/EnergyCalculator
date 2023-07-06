@@ -6,6 +6,8 @@ import { useState, useEffect, useRef } from "react";
 // COMPONENTS
 
 // UTILS
+import TextField from "@mui/material/TextField";
+import Typography from "@mui/material/Typography";
 
 // DATA
 
@@ -71,23 +73,16 @@ export const Input = ({
   // RETURN
   return (
     <>
-      <div>
-        <div>
-          <div>{label}</div>
-          <div>
-            <input
-              value={value.toString()}
-              onChange={(e) => {
-                e.persist();
-                handleUpdateFormulaValue(e.target.value);
-                handleUpdateLastValue(e.target.value, stateName);
-                setValue(e.target.value);
-              }}
-            />
-            <div>{metric}</div>
-          </div>
-        </div>
-      </div>
+      <Typography>{label}</Typography>
+      <TextField
+        value={value.toString()}
+        onChange={(e) => {
+          handleUpdateFormulaValue(e.target.value);
+          handleUpdateLastValue(e.target.value, stateName);
+          setValue(e.target.value);
+        }}
+      />
+      <Typography>{metric}</Typography>
     </>
   );
 };

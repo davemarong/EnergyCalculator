@@ -34,7 +34,6 @@ export const Filters = ({
     setSelectedIndex(value);
   };
 
-  // const buttonAnim = useRef(new Animated.Value(0).current);
   // RETURN
   return (
     <>
@@ -44,11 +43,6 @@ export const Filters = ({
         onPress={(value) => {
           handleSwitchFilter(value);
         }}
-        // Component={<Animated.Text />}
-        // containerStyle={{ marginBottom: 20 }}
-        // selectedButtonStyle={{
-        //   width: buttonAnim,
-        // }}
       />
     </>
   );
