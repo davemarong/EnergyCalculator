@@ -7,7 +7,7 @@ import { useState } from "react";
 
 // LIBRARIES
 import Typography from "@mui/material/Typography";
-import Select, { SelectChangeEvent } from "@mui/material/Select";
+import Select from "@mui/material/Select";
 import MenuItem from "@mui/material/MenuItem";
 import Grid from "@mui/material/Grid";
 
@@ -63,7 +63,11 @@ export const DisplayResult = ({
                   onChange={handleChange}
                 >
                   {toolTypes.map((item) => {
-                    return <MenuItem value={item.value}>{item.value}</MenuItem>;
+                    return (
+                      <MenuItem key={item.value} value={item.value}>
+                        {item.value}
+                      </MenuItem>
+                    );
                   })}
                 </Select>
               </>
