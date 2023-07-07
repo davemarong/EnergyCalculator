@@ -7,7 +7,6 @@ import { useRouter } from "next/router";
 // COMPONENTS
 import { Slider } from "../../components/Slider/Slider";
 import { SliderContainer } from "../../components/Slider/SliderContainer";
-import { Filters } from "../../components/Filters/Filters";
 import { DisplayResult } from "../../components/DisplayResult/DisplayResult";
 import BtnGroup from "../../components/ButtonGroup/Buttongroup";
 
