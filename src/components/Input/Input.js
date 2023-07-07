@@ -53,7 +53,6 @@ export const Input = ({
     Mm: [{ label: "mm", multiplier: 1 }],
   };
   // STATE
-  console.log(fullMetric);
   const [value, setValue] = useState(defaultValue);
   const [transformedValue, setTransformedValue] = useState(
     scale[fullMetric][0]
