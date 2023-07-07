@@ -9,7 +9,7 @@ export default function Home({ setCategory }) {
     <Grid container direction="column">
       {allMeny_item.map((item) => {
         return (
-          <Link href={`/${item.title}`}>
+          <Link key={item.id} href={`/${item.title}`}>
             <Button
               variant="contained"
               onClick={() => {

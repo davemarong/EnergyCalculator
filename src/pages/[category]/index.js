@@ -4,7 +4,7 @@ import React from "react";
 import { useRouter } from "next/router";
 import Button from "@mui/material/Button";
 
-export default function index({ category, setFormulaData }) {
+export default function Category({ category, setFormulaData }) {
   const router = useRouter();
   console.log(router);
   return (
