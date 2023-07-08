@@ -64,7 +64,7 @@ export const PipeCalculator = ({ formulaData, category }) => {
     buttonGroup: buttonGroup,
     setButtonGroup: setButtonGroup,
   };
-
+  // FORMS NETLIFY
   const SliderContainerProps = {
     inputdata: inputdata,
     setFormulaValues: setFormulaValues,
@@ -82,6 +82,7 @@ export const PipeCalculator = ({ formulaData, category }) => {
         formulaFunctions={formulaFunctions}
         toolTypes={toolTypes}
       />
+
       <BtnGroup {...ButtongroupProps} />
       <InputContainer {...SliderContainerProps} />
     </>
