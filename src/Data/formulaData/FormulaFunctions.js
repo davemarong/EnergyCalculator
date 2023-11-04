@@ -89,17 +89,10 @@ const scale = [
   { label: "mm", multiplier: 1 },
 ];
 
-const convertUnit = (unit, value) => {
-  const multiplier = scale.filter(({ label }) => label === unit)[0];
-  return multiplier?.multiplier * value;
-};
 export const findHastighet = (fv) => {
-  // const diameter = convertUnit(fv.diameter.metric, fv.diameter.value);
-  // const vannmengde = convertUnit(fv.vannmengde.metric, fv.vannmengde.value);
-  const diameter = fv.diameter.value;
-  const vannmengde = fv.vannmengde.value;
   const firstResult = (
-    ((4 * vannmengde) / (3.14 * (diameter * diameter))) *
+    ((4 * fv.vannmengde.value) /
+      (3.14 * (fv.diameter.value * fv.diameter.value))) *
     1000
   ).toFixed(2);
   return [

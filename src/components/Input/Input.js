@@ -33,52 +33,30 @@ export const Input = ({
     stateName,
     fullMetric,
   } = inputdata;
-  // const scale = {
-  //   Watt: [
-  //     { label: "W", multiplier: 1 },
-  //     { label: "KW", multiplier: 1000 },
-  //   ],
-  //   Liter: [
-  //     { label: "l/s", multiplier: 1 },
-  //     { label: "l/m", multiplier: 60 },
-  //     { label: "l/h", multiplier: 3600 },
-  //     { label: "m3/h", multiplier: 3.6 },
-  //     { label: "m3/s", multiplier: 0.001 },
-  //   ],
-  //   Pa: [
-  //     { label: "kPa", multiplier: 0.001 },
-  //     { label: "bar", multiplier: 0.00001 },
-  //     { label: "Mvs", multiplier: 0.0101974 },
-  //   ],
-  //   Mm: [{ label: "mm", multiplier: 1 }],
-  // };
   const scale = [
-    { label: "W", multiplier: 1 },
-    { label: "KW", multiplier: 1000 },
-    { label: "l/s", multiplier: 1 },
-    { label: "l/m", multiplier: 60 },
-    { label: "l/h", multiplier: 3600 },
-    { label: "m3/h", multiplier: 3.6 },
-    { label: "m3/s", multiplier: 0.001 },
-    { label: "kPa", multiplier: 0.001 },
-    { label: "bar", multiplier: 0.00001 },
-    { label: "Mvs", multiplier: 0.0101974 },
-    { label: "mm", multiplier: 1 },
+    { label: "W", multiplier: 1, fullMetric: "Watt" },
+    { label: "KW", multiplier: 1000, fullMetric: "Watt" },
+    { label: "l/s", multiplier: 1, fullMetric: "Liter" },
+    { label: "l/m", multiplier: 60, fullMetric: "Liter" },
+    { label: "l/h", multiplier: 3600, fullMetric: "Liter" },
+    { label: "m3/h", multiplier: 3.6, fullMetric: "Meter??" },
+    { label: "m3/s", multiplier: 0.001, fullMetric: "Meter??" },
+    { label: "kPa", multiplier: 0.001, fullMetric: "Watt" },
+    { label: "bar", multiplier: 0.00001, fullMetric: "Watt" },
+    { label: "Mvs", multiplier: 0.0101974, fullMetric: "Watt" },
+    { label: "mm", multiplier: 1, fullMetric: "Meter????" },
   ];
+  console.log({ fullMetric });
+  console.log({ label });
   // STATE
   const [value, setValue] = useState(defaultValue);
-  // const [transformedValue, setTransformedValue] = useState(
-  //   scale[fullMetric][0]
-  // );
-  // console.log(unit);
+
   const unit = scale.filter(({ label }) => label === metric)[0];
   const [selectedMetricLabel, setSelectedMetricLabel] = useState(unit.label);
   const [selectedMetric, setSelectedMetric] = useState(unit);
-  console.log(selectedMetric);
 
   // FUNCTIONS
   const handleUpdateFormulaValue = (value) => {
-    console.log({ value });
     const updatedValue = turnStringToNumber(value);
     const unit = scale.filter(({ label }) => label === selectedMetric.label)[0];
     setFormulaValues((prev) => {
@@ -127,8 +105,9 @@ export const Input = ({
 
   const handleChange = (e) => {
     console.log(e.target.value);
-    // setSelectedMetricLabel()
-    setSelectedMetric(e.target.value);
+    setSelectedMetricLabel(e.target.value);
+    const unit = scale.filter(({ label }) => label === e.target.value)[0];
+    setSelectedMetric(unit);
   };
   // RETURN
   return (
@@ -146,14 +125,14 @@ export const Input = ({
       />
       <Typography>{metric}</Typography>
       <Select
-        value={selectedMetric}
+        value={selectedMetricLabel}
         label="Tool Type"
         onChange={handleChange}
         name="dude"
       >
         {scale.map((item) => {
           return (
-            <MenuItem key={item.label} value={item}>
+            <MenuItem key={item.label} value={item.label}>
               {item.label}
             </MenuItem>
           );
