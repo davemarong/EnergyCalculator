@@ -4,6 +4,11 @@ export const navItemsPublic = [
     path: "/",
     color: "transparent",
   },
+  {
+    label: "Instillinger",
+    path: "/instillinger",
+    color: "transparent",
+  },
   // {
   //   label: "Login",
   //   path: "/login",

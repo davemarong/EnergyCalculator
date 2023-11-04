@@ -3,12 +3,13 @@ import Link from "next/link";
 import React from "react";
 import { useRouter } from "next/router";
 import Button from "@mui/material/Button";
+import BackIcon from "@/components/IconButton/BackIcon";
 
 export default function Category({ category, setFormulaData }) {
   const router = useRouter();
-  console.log(router);
   return (
     <>
+      <BackIcon />
       {category.map((item) => {
         return (
           <Link

@@ -179,7 +179,24 @@ export const findVentilautoritet = (fv) => {
   return (fv.apvkpa.value / (fv.apvkpa.value + fv.aprør.value)).toFixed(2);
 };
 
+const roundUpValue = (value, list) => {
+  let readableValue;
+  for (let i = 0; i < list.length; i++) {
+    if (value < list[i].technicalValue) {
+      readableValue = [list[i].readableValue, list[i].technicalValue];
+      break;
+
+      // If the "value" parameter is higher than all list technicalValues, use the last value in the list
+    } else if (value > list[list.length - 1].technicalValue) {
+      readableValue = [list[i].readableValue, list[i].technicalValue];
+      break;
+    }
+  }
+  return readableValue;
+};
 export const findDiameterRør = (fv, pipeType) => {
+  console.log(fv);
+  console.log(pipeType);
   const firstResult = (
     (5.545 * (fv.vannmengde.value * 3600) ** 0.373) /
     fv.trykkfall.value ** 0.204
@@ -201,22 +218,6 @@ export const findTrykkfall = (fv, diameter) => {
     (fv.vannmengde.value * 3600) ** 1.707 *
     diameter ** -(4.642).toFixed(2)
   );
-};
-
-const roundUpValue = (value, list) => {
-  let readableValue;
-  for (let i = 0; i < list.length; i++) {
-    if (value < list[i].technicalValue) {
-      readableValue = [list[i].readableValue, list[i].technicalValue];
-      break;
-
-      // If the "value" parameter is higher than all list technicalValues, use the last value in the list
-    } else if (value > list[list.length - 1].technicalValue) {
-      readableValue = [list[i].readableValue, list[i].technicalValue];
-      break;
-    }
-  }
-  return readableValue;
 };
 
 export const transformWatt = (metricScale, watt) => {

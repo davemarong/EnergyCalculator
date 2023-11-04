@@ -26,7 +26,7 @@ const Nav = ({ isLogged }) => {
   return (
     <Grid container justifyContent="space-between" alignItems="center">
       <Grid item justifyContent="center" alignItems="center" xs={6}>
-        <Typography variant="h6">Energy Calculator</Typography>
+        <Typography variant="h6">VVS Kalkulator</Typography>
       </Grid>
       <Grid item justifyContent="end">
         {navItems.map((item) => {

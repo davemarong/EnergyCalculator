@@ -10,6 +10,7 @@ import TextField from "@mui/material/TextField";
 import Typography from "@mui/material/Typography";
 import Select from "@mui/material/Select";
 import MenuItem from "@mui/material/MenuItem";
+import { Stack } from "@mui/material";
 
 // DATA
 
@@ -33,7 +34,7 @@ export const Input = ({
     stateName,
     fullMetric,
   } = inputdata;
-  const scale = [
+  const fullScale = [
     { label: "W", multiplier: 1, fullMetric: "Watt" },
     { label: "KW", multiplier: 1000, fullMetric: "Watt" },
     { label: "l/s", multiplier: 1, fullMetric: "Liter" },
@@ -44,27 +45,35 @@ export const Input = ({
     { label: "kPa", multiplier: 0.001, fullMetric: "Watt" },
     { label: "bar", multiplier: 0.00001, fullMetric: "Watt" },
     { label: "Mvs", multiplier: 0.0101974, fullMetric: "Watt" },
-    { label: "mm", multiplier: 1, fullMetric: "Meter????" },
+    { label: "mm", multiplier: 1, fullMetric: "Mm" },
   ];
-  console.log({ fullMetric });
-  console.log({ label });
+  const scale = fullScale.filter((item) => item.fullMetric === fullMetric);
   // STATE
   const [value, setValue] = useState(defaultValue);
-
+  const savedMetric = localStorage.getItem(fullMetric);
   const unit = scale.filter(({ label }) => label === metric)[0];
-  const [selectedMetricLabel, setSelectedMetricLabel] = useState(unit.label);
+  const [selectedMetricLabel, setSelectedMetricLabel] = useState(unit?.label);
   const [selectedMetric, setSelectedMetric] = useState(unit);
-
+  useEffect(() => {
+    if (savedMetric?.length) {
+      const unit = scale.filter(({ label }) => label === savedMetric)[0];
+      setSelectedMetricLabel(unit?.label);
+      setSelectedMetric(unit);
+    }
+  }, []);
   // FUNCTIONS
   const handleUpdateFormulaValue = (value) => {
     const updatedValue = turnStringToNumber(value);
     const unit = scale.filter(({ label }) => label === selectedMetric.label)[0];
+
     setFormulaValues((prev) => {
       return {
         ...prev,
         [stateName]: {
           ...prev[stateName],
-          value: updatedValue * unit?.multiplier,
+          value: unit?.multiplier
+            ? updatedValue * unit?.multiplier
+            : updatedValue,
         },
       };
     });
@@ -104,7 +113,6 @@ export const Input = ({
   }, [selectedIndex, selectedMetric]);
 
   const handleChange = (e) => {
-    console.log(e.target.value);
     setSelectedMetricLabel(e.target.value);
     const unit = scale.filter(({ label }) => label === e.target.value)[0];
     setSelectedMetric(unit);
@@ -113,31 +121,37 @@ export const Input = ({
   return (
     <>
       <Typography>{label}</Typography>
-      <TextField
-        type="number"
-        value={value}
-        onChange={(e) => {
-          console.log(stateName);
-          handleUpdateFormulaValue(e.target.value, selectedMetric);
-          handleUpdateLastValue(e.target.value, stateName);
-          setValue(e.target.value);
-        }}
-      />
-      <Typography>{metric}</Typography>
-      <Select
-        value={selectedMetricLabel}
-        label="Tool Type"
-        onChange={handleChange}
-        name="dude"
-      >
-        {scale.map((item) => {
-          return (
-            <MenuItem key={item.label} value={item.label}>
-              {item.label}
-            </MenuItem>
-          );
-        })}
-      </Select>
+      <Stack direction="row">
+        <TextField
+          type="number"
+          value={value}
+          onChange={(e) => {
+            console.log(stateName);
+            handleUpdateFormulaValue(e.target.value, selectedMetric);
+            handleUpdateLastValue(e.target.value, stateName);
+            setValue(e.target.value);
+          }}
+        />
+
+        {unit?.multiplier ? (
+          <Select
+            value={selectedMetricLabel}
+            label="Tool Type"
+            onChange={handleChange}
+            name="dude"
+          >
+            {scale.map((item) => {
+              return (
+                <MenuItem key={item.label} value={item.label}>
+                  {item.label}
+                </MenuItem>
+              );
+            })}
+          </Select>
+        ) : (
+          <p>{metric}</p>
+        )}
+      </Stack>
     </>
   );
 };
