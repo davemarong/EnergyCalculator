@@ -43,12 +43,12 @@ const Nav = ({ isLogged }) => {
             </Link>
           );
         })}
-        <Button variant="outlined" onClick={handleNetlifyLogin}>
+        {/* <Button variant="outlined" onClick={handleNetlifyLogin}>
           Logg Inn
         </Button>
         <Button variant="contained" onClick={handleNetlifyRegister}>
           Registrer
-        </Button>
+        </Button> */}
       </Grid>
     </Grid>
   );

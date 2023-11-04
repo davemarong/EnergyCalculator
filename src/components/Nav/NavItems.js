@@ -1,6 +1,6 @@
 export const navItemsPublic = [
   {
-    label: "Home",
+    label: "Hjem",
     path: "/",
     color: "transparent",
   },
@@ -17,7 +17,7 @@ export const navItemsPublic = [
 ];
 export const navItemsAuth = [
   {
-    label: "Home",
+    label: "Hjem",
     path: "/",
     color: "transparent",
   },

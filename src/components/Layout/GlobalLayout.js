@@ -1,11 +1,13 @@
 import React from "react";
 import Nav from "../Nav/Nav";
-
+import { Container } from "@mui/material";
 export const GlobalLayout = ({ children }) => {
   return (
     <>
-      <Nav />
-      {children}
+      <Container maxWidth="md">
+        <Nav />
+        {children}
+      </Container>
     </>
   );
 };

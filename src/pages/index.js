@@ -6,11 +6,10 @@ import Typography from "@mui/material/Typography";
 import Grid from "@mui/material/Grid";
 
 export default function Home({ setCategory, user }) {
-  console.log(user);
   return (
     <>
       {user && <Typography>Hei, {user.email}</Typography>}
-      <Grid container direction="column">
+      <Grid container direction="column" alignItems="center" gap="30px">
         {allMeny_item.map((item) => {
           return (
             <Link key={item.id} href={`/${item.title}`}>

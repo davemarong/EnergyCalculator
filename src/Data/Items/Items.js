@@ -123,7 +123,10 @@ export const ventilasjonMeny_items = [
   // },
 ];
 
+// Level 1
 export const allMeny_item = [
-  { title: "Vann", id: 0, menyItems: vannMeny_items },
-  { title: "Ventilasjon", id: 1, menyItems: ventilasjonMeny_items },
+  { title: "Rørberegninger", id: 0, menyItems: vannMeny_items },
+  { title: "Ventilasjonberegninger", id: 1, menyItems: ventilasjonMeny_items },
+  { title: "Diverse beregninger", id: 2, menyItems: ventilasjonMeny_items },
+  { title: "Enheter", id: 3, menyItems: ventilasjonMeny_items },
 ];
