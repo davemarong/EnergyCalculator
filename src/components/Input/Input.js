@@ -33,38 +33,61 @@ export const Input = ({
     stateName,
     fullMetric,
   } = inputdata;
-  const scale = {
-    Watt: [
-      { label: "W", multiplier: 1 },
-      { label: "KW", multiplier: 1000 },
-    ],
-    Liter: [
-      { label: "l/s", multiplier: 1 },
-      { label: "l/m", multiplier: 60 },
-      { label: "l/h", multiplier: 3600 },
-      { label: "m3/h", multiplier: 3.6 },
-      { label: "m3/s", multiplier: 0.001 },
-    ],
-    Pa: [
-      { label: "kPa", multiplier: 0.001 },
-      { label: "bar", multiplier: 0.00001 },
-      { label: "Mvs", multiplier: 0.0101974 },
-    ],
-    Mm: [{ label: "mm", multiplier: 1 }],
-  };
+  // const scale = {
+  //   Watt: [
+  //     { label: "W", multiplier: 1 },
+  //     { label: "KW", multiplier: 1000 },
+  //   ],
+  //   Liter: [
+  //     { label: "l/s", multiplier: 1 },
+  //     { label: "l/m", multiplier: 60 },
+  //     { label: "l/h", multiplier: 3600 },
+  //     { label: "m3/h", multiplier: 3.6 },
+  //     { label: "m3/s", multiplier: 0.001 },
+  //   ],
+  //   Pa: [
+  //     { label: "kPa", multiplier: 0.001 },
+  //     { label: "bar", multiplier: 0.00001 },
+  //     { label: "Mvs", multiplier: 0.0101974 },
+  //   ],
+  //   Mm: [{ label: "mm", multiplier: 1 }],
+  // };
+  const scale = [
+    { label: "W", multiplier: 1 },
+    { label: "KW", multiplier: 1000 },
+    { label: "l/s", multiplier: 1 },
+    { label: "l/m", multiplier: 60 },
+    { label: "l/h", multiplier: 3600 },
+    { label: "m3/h", multiplier: 3.6 },
+    { label: "m3/s", multiplier: 0.001 },
+    { label: "kPa", multiplier: 0.001 },
+    { label: "bar", multiplier: 0.00001 },
+    { label: "Mvs", multiplier: 0.0101974 },
+    { label: "mm", multiplier: 1 },
+  ];
   // STATE
   const [value, setValue] = useState(defaultValue);
-  const [transformedValue, setTransformedValue] = useState(
-    scale[fullMetric][0]
-  );
+  // const [transformedValue, setTransformedValue] = useState(
+  //   scale[fullMetric][0]
+  // );
+  // console.log(unit);
+  const unit = scale.filter(({ label }) => label === metric)[0];
+  const [selectedMetricLabel, setSelectedMetricLabel] = useState(unit.label);
+  const [selectedMetric, setSelectedMetric] = useState(unit);
+  console.log(selectedMetric);
 
   // FUNCTIONS
   const handleUpdateFormulaValue = (value) => {
+    console.log({ value });
     const updatedValue = turnStringToNumber(value);
+    const unit = scale.filter(({ label }) => label === selectedMetric.label)[0];
     setFormulaValues((prev) => {
       return {
         ...prev,
-        [stateName]: { ...prev[stateName], value: updatedValue },
+        [stateName]: {
+          ...prev[stateName],
+          value: updatedValue * unit?.multiplier,
+        },
       };
     });
   };
@@ -100,15 +123,12 @@ export const Input = ({
   useEffect(() => {
     const updatedValue = findLastInputValue();
     handleUpdateFormulaValue(updatedValue);
-  }, [selectedIndex]);
+  }, [selectedIndex, selectedMetric]);
 
   const handleChange = (e) => {
-    const scaleItem = scale[fullMetric].filter(
-      (item) => item.multiplier === e.target.value
-    )[0];
-    setTransformedValue(scaleItem);
-    console.log(scaleItem);
-    console.log(transformedValue);
+    console.log(e.target.value);
+    // setSelectedMetricLabel()
+    setSelectedMetric(e.target.value);
   };
   // RETURN
   return (
@@ -116,24 +136,29 @@ export const Input = ({
       <Typography>{label}</Typography>
       <TextField
         type="number"
-        // value={(value * transformedValue.multiplier).toString()}
         value={value}
         onChange={(e) => {
-          handleUpdateFormulaValue(e.target.value);
+          console.log(stateName);
+          handleUpdateFormulaValue(e.target.value, selectedMetric);
           handleUpdateLastValue(e.target.value, stateName);
           setValue(e.target.value);
         }}
       />
       <Typography>{metric}</Typography>
-      {/* <Select
-        value={transformedValue.label}
+      <Select
+        value={selectedMetric}
         label="Tool Type"
         onChange={handleChange}
+        name="dude"
       >
-        {scale.Liter.map((item) => {
-          return <MenuItem value={item.multiplier}>{item.label}</MenuItem>;
+        {scale.map((item) => {
+          return (
+            <MenuItem key={item.label} value={item}>
+              {item.label}
+            </MenuItem>
+          );
         })}
-      </Select> */}
+      </Select>
     </>
   );
 };

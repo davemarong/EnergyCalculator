@@ -1,10 +1,12 @@
 const diameter = {
   label: "Diameter",
   value: 100,
+  metric: "mm",
 };
 const vannmengde = {
   label: "Vannmengde",
   value: 2.5,
+  metric: "l/s",
 };
 const lufthastighet = {
   label: "Lufthastighet",

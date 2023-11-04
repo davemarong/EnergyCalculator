@@ -55,10 +55,51 @@ export const findDiameterRørStål = (fv) => {
     fv.trykkfall.value ** 0.204
   ).toFixed(2);
 };
+
+// const scale = {
+//   Watt: [
+//     { label: "W", multiplier: 1 },
+//     { label: "KW", multiplier: 1000 },
+//   ],
+//   Liter: [
+//     { label: "l/s", multiplier: 1 },
+//     { label: "l/m", multiplier: 60 },
+//     { label: "l/h", multiplier: 3600 },
+//     { label: "m3/h", multiplier: 3.6 },
+//     { label: "m3/s", multiplier: 0.001 },
+//   ],
+//   Pa: [
+//     { label: "kPa", multiplier: 0.001 },
+//     { label: "bar", multiplier: 0.00001 },
+//     { label: "Mvs", multiplier: 0.0101974 },
+//   ],
+//   Mm: [{ label: "mm", multiplier: 1 }],
+// };
+const scale = [
+  { label: "W", multiplier: 1 },
+  { label: "KW", multiplier: 1000 },
+  { label: "l/s", multiplier: 1 },
+  { label: "l/m", multiplier: 60 },
+  { label: "l/h", multiplier: 3600 },
+  { label: "m3/h", multiplier: 3.6 },
+  { label: "m3/s", multiplier: 0.001 },
+  { label: "kPa", multiplier: 0.001 },
+  { label: "bar", multiplier: 0.00001 },
+  { label: "Mvs", multiplier: 0.0101974 },
+  { label: "mm", multiplier: 1 },
+];
+
+const convertUnit = (unit, value) => {
+  const multiplier = scale.filter(({ label }) => label === unit)[0];
+  return multiplier?.multiplier * value;
+};
 export const findHastighet = (fv) => {
+  // const diameter = convertUnit(fv.diameter.metric, fv.diameter.value);
+  // const vannmengde = convertUnit(fv.vannmengde.metric, fv.vannmengde.value);
+  const diameter = fv.diameter.value;
+  const vannmengde = fv.vannmengde.value;
   const firstResult = (
-    ((4 * fv.vannmengde.value) /
-      (3.14 * (fv.diameter.value * fv.diameter.value))) *
+    ((4 * vannmengde) / (3.14 * (diameter * diameter))) *
     1000
   ).toFixed(2);
   return [

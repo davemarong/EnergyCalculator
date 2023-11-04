@@ -39,7 +39,6 @@ const BtnGroup = ({
     setToolTypes(toolTypes);
     setSelectedIndex(id);
   };
-  console.log(selectedIndex);
   // RETURN
   return (
     <>
