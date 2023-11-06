@@ -1,3 +1,5 @@
+"use client";
+
 // IMPORT
 
 // REACT
@@ -50,7 +52,11 @@ export const Input = ({
   const scale = fullScale.filter((item) => item.fullMetric === fullMetric);
   // STATE
   const [value, setValue] = useState(defaultValue);
-  const savedMetric = localStorage.getItem(fullMetric);
+  let savedMetric;
+  if (global?.window !== undefined) {
+    // Now it's safe to access window and localStorage
+    savedMetric = window?.localStorage?.getItem(fullMetric);
+  }
   const unit = scale.filter(({ label }) => label === metric)[0];
   const [selectedMetricLabel, setSelectedMetricLabel] = useState(unit?.label);
   const [selectedMetric, setSelectedMetric] = useState(unit);
